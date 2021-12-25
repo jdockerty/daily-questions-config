@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-questions
+spec:
+  schedule: "0 22 * * *" # At 10pm UTC every day
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: daily-questions
+            image: ghcr.io/jdockerty/daily-questions:0.1
+            imagePullPolicy: IfNotPresent
+            resources:
+              requests:
+                memory: "64Mi"
+                cpu: "100m"
+              limits:
+                memory: "128Mi"
+                cpu: "256m"
+          restartPolicy: OnFailure
+
