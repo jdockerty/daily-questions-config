@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: daily-questions
+  namespace: daily-questions
 spec:
   schedule: "0 22 * * *" # At 10pm UTC every day
   jobTemplate:
@@ -19,5 +20,11 @@ spec:
               limits:
                 memory: "128Mi"
                 cpu: "256m"
+            volumeMounts:
+              - mountPath: /app
+                name: daily-conf
           restartPolicy: OnFailure
-
+          volumes:
+            - name: daily-conf
+              secret:
+                secretName: daily-questions-config
