@@ -1,0 +1,2 @@
+# Ignore the local public certificate of the SealedSecrets controller, we do not commit this as it may change in the future.
+*.pem
