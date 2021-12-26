@@ -13,6 +13,9 @@ spec:
           - name: daily-questions
             image: ghcr.io/jdockerty/daily-questions:0.1
             imagePullPolicy: IfNotPresent
+            env:
+              - name: DAILY_CONF
+                value: "/tmp/config/daily-conf.yaml"
             resources:
               requests:
                 memory: "64Mi"
@@ -21,7 +24,7 @@ spec:
                 memory: "128Mi"
                 cpu: "256m"
             volumeMounts:
-              - mountPath: /app
+              - mountPath: /tmp/config
                 name: daily-conf
           restartPolicy: OnFailure
           volumes:
